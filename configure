@@ -12030,7 +12030,7 @@ if ${ac_cv_lib_crypto_HMAC_Init_ex+:} false; then :
   $as_echo_n "(cached) " >&6
 else
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcrypto  $LIBS"
+LIBS="$LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -12065,7 +12065,7 @@ if test "x$ac_cv_lib_crypto_HMAC_Init_ex" = xyes; then :
 #define HAVE_LIBCRYPTO 1
 _ACEOF
 
-  LIBS="-lcrypto $LIBS"
+  LIBS="$LIBS"
 
 else
   as_fn_error $? "Library crypto not found. Install openssl!\"" "$LINENO" 5
