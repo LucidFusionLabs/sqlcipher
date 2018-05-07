@@ -3780,6 +3780,7 @@ static int do_meta_command(char *zLine, ShellState *p){
     }
   }else
 
+#if 0
   if( c=='s'
    && (strncmp(azArg[0], "shell", n)==0 || strncmp(azArg[0],"system",n)==0)
   ){
@@ -3799,6 +3800,7 @@ static int do_meta_command(char *zLine, ShellState *p){
     sqlite3_free(zCmd);
     if( x ) raw_printf(stderr, "System command returns %d\n", x);
   }else
+#endif
 
   if( c=='s' && strncmp(azArg[0], "show", n)==0 ){
     int i;
