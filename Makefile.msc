@@ -219,26 +219,26 @@ SQLITE3H = sqlite3.h
 # This is the name to use for the SQLite dynamic link library (DLL).
 #
 !IFNDEF SQLITE3DLL
-SQLITE3DLL = sqlite3.dll
+SQLITE3DLL = sqlcipher.dll
 !ENDIF
 
 # This is the name to use for the SQLite import library (LIB).
 #
 !IFNDEF SQLITE3LIB
-SQLITE3LIB = sqlite3.lib
+SQLITE3LIB = sqlcipher.lib
 !ENDIF
 
 # This is the name to use for the SQLite shell executable (EXE).
 #
 !IFNDEF SQLITE3EXE
-SQLITE3EXE = sqlite3.exe
+SQLITE3EXE = sqlcipher.exe
 !ENDIF
 
 # This is the argument used to set the program database (PDB) file for the
 # SQLite shell executable (EXE).
 #
 !IFNDEF SQLITE3EXEPDB
-SQLITE3EXEPDB = /pdb:sqlite3sh.pdb
+SQLITE3EXEPDB = /pdb:sqlciphersh.pdb
 !ENDIF
 
 # These are the "standard" SQLite compilation options used when compiling for
@@ -755,8 +755,12 @@ TLIBS =
 # default to file, 2 to default to memory, and 3 to force temporary
 # tables to always be in memory.
 #
-TCC = $(TCC) -DSQLITE_TEMP_STORE=1
-RCC = $(RCC) -DSQLITE_TEMP_STORE=1
+TCC = $(TCC) -DSQLITE_TEMP_STORE=2
+RCC = $(RCC) -DSQLITE_TEMP_STORE=2
+
+# Add -DSQLITE_HAS_CODEC to TCC and RCC 
+TCC = $(TCC) -DSQLITE_HAS_CODEC -D_USING_V110_SDK71_ -I..\..\..\openssl\install\include
+RCC = $(RCC) -DSQLITE_HAS_CODEC -D_USING_V110_SDK71_ -I..\..\..\openssl\install\include
 
 # Enable/disable loadable extensions, and other optional features
 # based on configuration. (-DSQLITE_OMIT*, -DSQLITE_ENABLE*).
@@ -950,6 +954,8 @@ LTLIBPATHS = $(LTLIBPATHS) /LIBPATH:$(ICULIBDIR)
 LTLIBS = $(LTLIBS) $(LIBICU)
 !ENDIF
 # <</mark>>
+
+LTLIBSPATH = $(LTLIBSPATH) /libpath:..\..\..\openssl\install\lib
 
 # You should not have to change anything below this line
 ###############################################################################
@@ -1393,7 +1399,7 @@ dll: $(SQLITE3DLL)
 #
 shell: $(SQLITE3EXE)
 
-libsqlite3.lib:	$(LIBOBJ)
+$(SQLITE3LIB):	$(LIBOBJ)
 	$(LTLIB) $(LTLIBOPTS) /OUT:$@ $(LIBOBJ) $(TLIBS)
 
 # <<mark>>
